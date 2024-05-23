@@ -10,27 +10,27 @@ type Props = {
   params: { articleId: string };
 };
 
-// // メタデータ titleタグの設定
-// export async function generateMetadata(props: Props): Promise<Metadata> {
-//   const id = props.params.articleId;
-//   const article = await getArticleDetail(id);
-//   if (article) {
-//     return {
-//       title: article.title,
-//     };
-//   }
-//   return {};
-// }
-
 // URLのパスを設定 /articles/記事の{ID}
 export async function generateStaticParams() {
   const { contents } = await getArticles();
   const paths = contents.map((article) => {
     return {
-      params: { articleId: article.id },
+      articleId: article.id,
     };
   });
   return paths;
+}
+
+// メタデータ titleタグの設定
+export async function generateMetadata(props: Props): Promise<Metadata> {
+  const id = props.params.articleId;
+  const article = await getArticleDetail(id);
+  if (article) {
+    return {
+      title: article.title,
+    };
+  }
+  return { title: '404' };
 }
 
 export default async function Article(props: Props) {

@@ -11,9 +11,14 @@ const parPage = 12;
 
 export default function Home(props: Props) {
   const page = Number(props.searchParams.page ?? '1');
+
   const { contents, totalCount } = use(
     getArticles({ offset: page * parPage - parPage, limit: parPage })
   );
+
+  if (!contents || contents.length === 0) {
+    return <h1>No Contents</h1>;
+  }
 
   return (
     <div className="flex flex-col">

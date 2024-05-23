@@ -51,6 +51,7 @@ export async function getArticleDetail(
       contentId,
       queries,
     });
+
     return articleDetail;
   } catch (error) {
     return null;
