@@ -14,9 +14,12 @@ type Props = {
 export async function generateMetadata(props: Props): Promise<Metadata> {
   const id = props.params.articleId;
   const article = await getArticleDetail(id);
-  return {
-    title: article.title,
-  };
+  if (article) {
+    return {
+      title: article.title,
+    };
+  }
+  return {};
 }
 
 // URLのパスを設定 /articles/記事の{ID}
