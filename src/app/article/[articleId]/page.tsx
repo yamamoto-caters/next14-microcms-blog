@@ -24,7 +24,7 @@ export async function generateStaticParams() {
   const { contents } = await getArticles();
   const paths = contents.map((article) => {
     return {
-      article: article.id,
+      params: { articleId: article.id },
     };
   });
   return paths;
